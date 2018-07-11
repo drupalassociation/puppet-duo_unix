@@ -21,6 +21,7 @@ class duo_unix (
   $accept_env_factor = 'no',
   $manage_ssh = true,
   $manage_packages = true,
+  $duo_package = 'duo-unix',
   $pam_unix_control = 'requisite',
   $package_version = 'installed',
 ) {
@@ -34,7 +35,6 @@ class duo_unix (
 
   case $::osfamily {
     'RedHat': {
-      $duo_package = 'duo_unix'
       $ssh_service = 'sshd'
       $gpg_file    = '/etc/pki/rpm-gpg/RPM-GPG-KEY-DUO'
 
@@ -55,7 +55,6 @@ class duo_unix (
       include duo_unix::generic
     }
     'Debian': {
-      $duo_package = 'duo-unix'
       $ssh_service = 'ssh'
       $gpg_file    = '/etc/apt/DEB-GPG-KEY-DUO'
       $pam_file    = '/etc/pam.d/common-auth'
