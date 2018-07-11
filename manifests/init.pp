@@ -23,6 +23,7 @@ class duo_unix (
   $manage_packages = true,
   $duo_package = 'duo-unix',
   $pam_unix_control = 'requisite',
+  $pam_conf_file = '/etc/duo/pam_duo.conf',
   $package_version = 'installed',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {

@@ -10,7 +10,7 @@ class duo_unix::pam inherits duo_unix {
   $aug_pam_path = "/files${duo_unix::pam_file}"
   $aug_match    = "${aug_pam_path}/*/module[. = '${duo_unix::pam_module}']"
 
-  file { '/etc/duo/pam_duo.conf':
+  file { $pam_conf_file:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
