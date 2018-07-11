@@ -20,6 +20,7 @@ class duo_unix (
   $prompts = '3',
   $accept_env_factor = 'no',
   $manage_ssh = true,
+  $manage_packages = true,
   $pam_unix_control = 'requisite',
   $package_version = 'installed',
 ) {
@@ -48,7 +49,9 @@ class duo_unix (
         x86_64 => '/lib64/security/pam_duo.so'
       }
 
-      include duo_unix::yum
+      if $manage_packages {
+        include duo_unix::yum
+      }
       include duo_unix::generic
     }
     'Debian': {
@@ -63,7 +66,9 @@ class duo_unix (
         amd64 => '/lib64/security/pam_duo.so'
       }
 
-      include duo_unix::apt
+      if $manage_packages {
+        include duo_unix::apt
+      }
       include duo_unix::generic
     }
     default: {
