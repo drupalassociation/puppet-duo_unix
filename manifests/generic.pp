@@ -20,7 +20,6 @@ class duo_unix::generic {
     group  => 'root',
     mode   => '0644',
     source => 'puppet:///modules/duo_unix/GPG-KEY-DUO',
-    notify => Exec['Duo Security GPG Import'];
   }
 
   if $duo_unix::manage_ssh {
