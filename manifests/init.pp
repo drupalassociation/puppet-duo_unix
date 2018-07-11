@@ -24,7 +24,7 @@ class duo_unix (
   $duo_package = 'duo-unix',
   $pam_unix_control = 'requisite',
   $pam_conf_file = '/etc/duo/pam_duo.conf',
-  $pam_module = '/lib64/security/pam_duo.so',
+  $pam_module_path = '/lib64/security/pam_duo.so',
   $package_version = 'installed',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
@@ -52,6 +52,8 @@ class duo_unix (
           x86_64 => '/lib64/security/pam_duo.so'
         }
         include duo_unix::yum
+      } else {
+        $pam_module = $pam_module_path
       }
       include duo_unix::generic
     }
@@ -67,6 +69,8 @@ class duo_unix (
           amd64 => '/lib64/security/pam_duo.so'
         }
         include duo_unix::apt
+      } else {
+        $pam_module = $pam_module_path
       }
       include duo_unix::generic
     }
