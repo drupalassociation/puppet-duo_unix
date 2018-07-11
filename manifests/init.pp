@@ -24,6 +24,7 @@ class duo_unix (
   $duo_package = 'duo-unix',
   $pam_unix_control = 'requisite',
   $pam_conf_file = '/etc/duo/pam_duo.conf',
+  $pam_module = '/lib64/security/pam_duo.so',
   $package_version = 'installed',
 ) {
   if $ikey == '' or $skey == '' or $host == '' {
@@ -44,13 +45,12 @@ class duo_unix (
         /^(6|7|2014)/ => '/etc/pam.d/password-auth'
       }
 
-      $pam_module  = $::architecture ? {
-        i386   => '/lib/security/pam_duo.so',
-        i686   => '/lib/security/pam_duo.so',
-        x86_64 => '/lib64/security/pam_duo.so'
-      }
-
       if $manage_packages {
+        $pam_module  = $::architecture ? {
+          i386   => '/lib/security/pam_duo.so',
+          i686   => '/lib/security/pam_duo.so',
+          x86_64 => '/lib64/security/pam_duo.so'
+        }
         include duo_unix::yum
       }
       include duo_unix::generic
@@ -60,13 +60,12 @@ class duo_unix (
       $gpg_file    = '/etc/apt/DEB-GPG-KEY-DUO'
       $pam_file    = '/etc/pam.d/common-auth'
 
-      $pam_module  = $::architecture ? {
-        i386  => '/lib/security/pam_duo.so',
-        i686  => '/lib/security/pam_duo.so',
-        amd64 => '/lib64/security/pam_duo.so'
-      }
-
       if $manage_packages {
+        $pam_module  = $::architecture ? {
+          i386  => '/lib/security/pam_duo.so',
+          i686  => '/lib/security/pam_duo.so',
+          amd64 => '/lib64/security/pam_duo.so'
+        }
         include duo_unix::apt
       }
       include duo_unix::generic
